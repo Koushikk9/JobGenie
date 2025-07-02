@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobPortal India - Government & Private Jobs</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <a href="/"><i class="fas fa-briefcase"></i> JobGenie India</a>
+                </div>
+                <div class="nav-links">
+                    <a href="/" onclick="showPage('home')">Home</a>
+                    <!-- Links that will be shown/hidden by JavaScript -->
+                    <a href="#" id="nav-login-link" onclick="openModal('login')">Login</a>
+                    <a href="#" id="nav-register-link" onclick="openModal('register')">Register</a>
+                    <a href="#" id="nav-post-job-link" onclick="showPostJobModal()" style="display: none;">Post Job</a>
+                    <a href="/dashboard" id="nav-dashboard-link" style="display: none;">My Dashboard</a>
+                    <span id="nav-username"
+                        style="display: none; color: #e63946; font-weight: bold; margin-left: 1rem;"></span>
+                    <a href="/logout" id="nav-logout-link" style="display: none;">Logout</a>
+                </div>
+                <button class="mobile-menu" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+
+    <div class="mobile-nav">
+        <a href="#" onclick="showPage('home')">Home</a>
+        <!-- Links that will be shown/hidden by JavaScript -->
+        <a href="#" id="mobile-nav-login-link" onclick="openModal('login')">Login</a>
+        <a href="#" id="mobile-nav-register-link" onclick="openModal('register')">Register</a>
+        <a href="#" id="mobile-nav-post-job-link" onclick="showPostJobModal()" style="display: none;">Post Job</a>
+        <a href="/dashboard" id="mobile-nav-dashboard-link" style="display: none;">My Dashboard</a>
+        <a href="/logout" id="mobile-nav-logout-link" style="display: none;">Logout</a>
+    </div>
+
+    <!-- Homepage -->
+    <div id="home" class="page active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1>Your Single Stop for Every Job: Government & Private Opportunities Across India</h1>
+                <p>Discover, Apply, Succeed. All Jobs. All Fields. All Yours.</p>
+
+                <!-- Search Container -->
+                <div class="search-container">
+                    <form class="search-form" onsubmit="performSearch(event)">
+                        <input type="text" class="search-input" placeholder="What (Job title, skills, company)"
+                            id="whatInput">
+
+                        <div class="location-row">
+                            <input type="text" class="search-input location-input" placeholder="Where (City, State)"
+                                id="whereInput">
+                            <label class="remote-toggle">
+                                <input type="checkbox" id="remoteToggle">
+                                <span class="switch-slider"></span> <!-- This is the new, crucial element -->
+                                <span>Remote</span>
+                            </label>
+                        </div>
+
+                        <div class="job-type-toggles">
+                            <button type="button" class="toggle-btn active" data-type="both">
+                                <i class="fas fa-globe"></i> Both
+                            </button>
+                            <button type="button" class="toggle-btn" data-type="government">
+                                <i class="fas fa-university"></i> Government
+                            </button>
+                            <button type="button" class="toggle-btn" data-type="private">
+                                <i class="fas fa-building"></i> Private
+                            </button>
+                        </div>
+
+                        <button type="submit" class="search-btn">
+                            <i class="fas fa-search"></i> Search Jobs
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Below the Fold Content -->
+        <section class="below-fold">
+            <div class="container">
+                <!-- Trending Searches -->
+                <div class="section">
+                    <h2>Trending Searches</h2>
+                    <div class="trending-tags">
+                        <button class="tag" onclick="searchTag('UPSC')">UPSC</button>
+                        <button class="tag" onclick="searchTag('Software Engineer')">Software Engineer</button>
+                        <button class="tag" onclick="searchTag('Banking')">Banking</button>
+                        <button class="tag" onclick="searchTag('Railway')">Railway</button>
+                        <button class="tag" onclick="searchTag('Data Analyst')">Data Analyst</button>
+                        <button class="tag" onclick="searchTag('Teaching')">Teaching</button>
+                        <button class="tag" onclick="searchTag('Delhi')">Delhi Jobs</button>
+                        <button class="tag" onclick="searchTag('Remote')">Remote Work</button>
+                    </div>
+                </div>
+
+                <!-- Browse by Category -->
+                <div class="section">
+                    <h2>Browse by Category</h2>
+                    <div class="categories-grid">
+                        <div class="category-card govt" onclick="searchByCategory('Government')">
+                            <i class="fas fa-university"></i>
+                            <h3>Government Jobs</h3>
+                            <div class="subcategories">
+                                <span>UPSC</span>
+                                <span>Banking</span>
+                                <span>Railway</span>
+                                <span>SSC</span>
+                            </div>
+                        </div>
+
+                        <div class="category-card private" onclick="searchByCategory('IT & Software')">
+                            <i class="fas fa-laptop-code"></i>
+                            <h3>IT & Software</h3>
+                            <div class="subcategories">
+                                <span>Development</span>
+                                <span>Testing</span>
+                                <span>DevOps</span>
+                                <span>AI/ML</span>
+                            </div>
+                        </div>
+
+                        <div class="category-card private" onclick="searchByCategory('Finance')">
+                            <i class="fas fa-chart-line"></i>
+                            <h3>Finance</h3>
+                            <div class="subcategories">
+                                <span>Banking</span>
+                                <span>Investment</span>
+                                <span>Insurance</span>
+                                <span>Accounting</span>
+                            </div>
+                        </div>
+
+                        <div class="category-card private" onclick="searchByCategory('Healthcare')">
+                            <i class="fas fa-stethoscope"></i>
+                            <h3>Healthcare</h3>
+                            <div class="subcategories">
+                                <span>Doctors</span>
+                                <span>Nursing</span>
+                                <span>Pharmacy</span>
+                                <span>Research</span>
+                            </div>
+                        </div>
+
+                        <div class="category-card govt" onclick="searchByCategory('Education')">
+                            <i class="fas fa-graduation-cap"></i>
+                            <h3>Education</h3>
+                            <div class="subcategories">
+                                <span>Teaching</span>
+                                <span>Research</span>
+                                <span>Administration</span>
+                                <span>Training</span>
+                            </div>
+                        </div>
+
+                        <div class="category-card private" onclick="searchByCategory('Marketing')">
+                            <i class="fas fa-bullhorn"></i>
+                            <h3>Marketing</h3>
+                            <div class="subcategories">
+                                <span>Digital</span>
+                                <span>Sales</span>
+                                <span>Content</span>
+                                <span>Brand</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="section">
+                    <h2>Quick Links</h2>
+                    <div class="quick-links">
+                        <a href="#" class="quick-link govt" onclick="showExamCalendar()">
+                            <i class="fas fa-calendar"></i>
+                            <span>Exam Calendar</span>
+                        </a>
+
+                        <a href="#" class="quick-link private" onclick="showPostJobModal()">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>Post a Job</span>
+                        </a>
+
+                        <a href="#" class="quick-link govt" onclick="showResults()">
+                            <i class="fas fa-trophy"></i>
+                            <span>Results</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Search Results Page -->
+    <div id="search-results" class="page">
+        <div class="container">
+            <div class="results-header">
+                <h2>Search Results</h2>
+                <p id="results-count">Loading...</p>
+            </div>
+
+            <div class="results-layout">
+                <!-- Filters Sidebar -->
+                <aside class="filters-sidebar">
+                    <div class="filters-header">
+                        <h3>Filters</h3>
+                        <button class="clear-filters" onclick="clearAllFilters()">Clear All</button>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>Job Sector</h4>
+                        <div class="filter-options">
+                            <label><input type="checkbox" value="UPSC" onchange="applyFilter('sector', this)">
+                                UPSC</label>
+                            <label><input type="checkbox" value="PSU" onchange="applyFilter('sector', this)">
+                                PSU</label>
+                            <label><input type="checkbox" value="Banking" onchange="applyFilter('sector', this)">
+                                Banking</label>
+                            <label><input type="checkbox" value="MNC" onchange="applyFilter('sector', this)">
+                                MNC</label>
+                            <label><input type="checkbox" value="Startup" onchange="applyFilter('sector', this)">
+                                Startup</label>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>Experience</h4>
+                        <div class="filter-options">
+                            <label><input type="checkbox" value="Fresher" onchange="applyFilter('experience', this)">
+                                Fresher</label>
+                            <label><input type="checkbox" value="1-3 years" onchange="applyFilter('experience', this)">
+                                1-3 years</label>
+                            <label><input type="checkbox" value="3-5 years" onchange="applyFilter('experience', this)">
+                                3-5 years</label>
+                            <label><input type="checkbox" value="5+ years" onchange="applyFilter('experience', this)">
+                                5+ years</label>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>Salary Range</h4>
+                        <div class="filter-options">
+                            <label><input type="checkbox" value="0-3" onchange="applyFilter('salary', this)"> ₹0-3
+                                LPA</label>
+                            <label><input type="checkbox" value="3-6" onchange="applyFilter('salary', this)"> ₹3-6
+                                LPA</label>
+                            <label><input type="checkbox" value="6-10" onchange="applyFilter('salary', this)"> ₹6-10
+                                LPA</label>
+                            <label><input type="checkbox" value="10+" onchange="applyFilter('salary', this)"> ₹10+
+                                LPA</label>
+                        </div>
+                    </div>
+
+                    <div class="filter-group govt-filters">
+                        <h4>Government Specific</h4>
+                        <div class="filter-options">
+                            <label><input type="checkbox" value="18-30" onchange="applyFilter('age', this)"> Age:
+                                18-30</label>
+                            <label><input type="checkbox" value="General" onchange="applyFilter('category', this)">
+                                General Category</label>
+                            <label><input type="checkbox" value="OBC" onchange="applyFilter('category', this)">
+                                OBC</label>
+                            <label><input type="checkbox" value="SC/ST" onchange="applyFilter('category', this)">
+                                SC/ST</label>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Job Cards -->
+                <main class="job-results">
+                    <div class="job-cards-container" id="job-cards-container">
+                        <!-- Job cards will be populated by JavaScript -->
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- Job Details Page -->
+    <div id="job-details" class="page">
+        <div class="container">
+            <div class="job-detail-container">
+                <div class="job-header">
+                    <button class="back-btn" onclick="showPage('search-results')">
+                        <i class="fas fa-arrow-left"></i> Back to Results
+                    </button>
+                    <div class="job-title-section">
+                        <h1 id="job-detail-title">Software Engineer</h1>
+                        <div class="job-meta">
+                            <span class="job-type-badge private">🏢 Private</span>
+                            <span class="company">Google India</span>
+                            <span class="location">Bangalore, Karnataka</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="job-detail-content">
+                    <div class="tabs">
+                        <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
+                        <button class="tab-btn" onclick="showTab('eligibility')">Eligibility</button>
+                        <button class="tab-btn" onclick="showTab('apply')">How to Apply</button>
+                        <button class="tab-btn" onclick="showTab('selection')">Selection Process</button>
+                        <button class="tab-btn" onclick="showTab('dates')">Important Dates</button>
+                    </div>
+
+                    <div class="tab-content">
+                        <div id="overview" class="tab-pane active">
+                            <h3>Job Overview</h3>
+                            <p>We are looking for a talented Software Engineer to join our dynamic team...</p>
+
+                            <div class="job-highlights">
+                                <div class="highlight">
+                                    <i class="fas fa-rupee-sign"></i>
+                                    <span>₹8-15 LPA</span>
+                                </div>
+                                <div class="highlight">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Full Time</span>
+                                </div>
+                                <div class="highlight">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Apply by: Dec 31, 2024</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="eligibility" class="tab-pane">
+                            <h3>Eligibility Criteria</h3>
+                            <ul>
+                                <li>Bachelor's degree in Computer Science or related field</li>
+                                <li>2+ years of experience in software development</li>
+                                <li>Proficiency in Java, Python, or JavaScript</li>
+                            </ul>
+                        </div>
+
+                        <div id="apply" class="tab-pane">
+                            <h3>How to Apply</h3>
+                            <p>Submit your application through our online portal...</p>
+                        </div>
+
+                        <div id="selection" class="tab-pane">
+                            <h3>Selection Process</h3>
+                            <ol>
+                                <li>Online Application</li>
+                                <li>Technical Assessment</li>
+                                <li>Technical Interview</li>
+                                <li>HR Interview</li>
+                            </ol>
+                        </div>
+
+                        <div id="dates" class="tab-pane">
+                            <h3>Important Dates</h3>
+                            <div class="countdown-timer">
+                                <h4>Application Deadline</h4>
+                                <div id="countdown">15 days remaining</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="apply-section">
+                    <button class="apply-btn" onclick="applyForJob()">Apply Now</button>
+                    <button class="save-btn" onclick="saveJob()">Save Job</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Dashboard -->
+    <div id="dashboard" class="page">
+        <div class="container">
+            <div class="dashboard-header">
+                <h2>My Dashboard</h2>
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Welcome, User!</span>
+                </div>
+            </div>
+
+            <div class="dashboard-tabs">
+                <button class="dash-tab-btn active" onclick="showDashTab('saved')">Saved Jobs</button>
+                <button class="dash-tab-btn" onclick="showDashTab('applied')">Applied Jobs</button>
+                <button class="dash-tab-btn" onclick="showDashTab('profile')">Profile</button>
+                <button class="dash-tab-btn" onclick="showDashTab('calendar')">Exam Calendar</button>
+                <button class="dash-tab-btn" onclick="showDashTab('recommended')">Recommended</button>
+            </div>
+
+            <div class="dashboard-content">
+                <div id="saved" class="dash-tab-pane active">
+                    <h3>Saved Jobs</h3>
+                    <div class="saved-jobs">
+                        <p>No saved jobs yet. Start exploring and save jobs you're interested in!</p>
+                    </div>
+                </div>
+
+                <div id="applied" class="dash-tab-pane">
+                    <h3>Applied Jobs</h3>
+                    <div class="applied-jobs">
+                        <p>No applications yet. Apply to jobs that match your profile!</p>
+                    </div>
+                </div>
+
+                <div id="profile" class="dash-tab-pane">
+                    <h3>Profile Management</h3>
+                    <div class="profile-section">
+                        <div class="profile-card">
+                            <h4>Resume</h4>
+                            <p>Upload and manage your resume</p>
+                            <button class="upload-btn" onclick="uploadResume()">Upload Resume</button>
+                        </div>
+                        <div class="profile-card">
+                            <h4>Personal Information</h4>
+                            <p>Update your contact details</p>
+                            <button class="edit-btn" onclick="editProfile()">Edit Profile</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="calendar" class="dash-tab-pane">
+                    <h3>Government Exam Calendar</h3>
+                    <div class="exam-calendar">
+                        <div class="exam-item">
+                            <div class="exam-date">15 Jul</div>
+                            <div class="exam-info">
+                                <h4>UPSC Civil Services Prelims</h4>
+                                <p>Registration deadline: March 30</p>
+                            </div>
+                        </div>
+                        <div class="exam-item">
+                            <div class="exam-date">28 Aug</div>
+                            <div class="exam-info">
+                                <h4>SSC CGL Tier 1</h4>
+                                <p>Registration deadline: April 15</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="recommended" class="dash-tab-pane">
+                    <h3>Recommended Jobs</h3>
+                    <div class="recommended-jobs">
+                        <p>Complete your profile to get personalized job recommendations!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal-backdrop" class="modal-backdrop hidden"></div>
+    <div id="auth-modal" class="modal-container hidden">
+        <button class="modal-close-btn" onclick="closeModal()">×</button>
+
+        <!-- Login View -->
+        <div id="login-view">
+            <div class="modal-header">
+                <div class="logo-icon"><i class="fas fa-briefcase"></i></div>
+                <h2>Welcome Back!</h2>
+                <p>Sign in to continue your journey.</p>
+            </div>
+            <div class="modal-body">
+                <form class="modal-form" id="login-form">
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Address"
+                            required>
+                        <i class="fas fa-envelope fa-icon"></i>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                            required>
+                        <i class="fas fa-lock fa-icon"></i>
+                    </div>
+                    <div class="user-type-toggle">
+                        <input type="radio" id="login_recruiter" name="user_type" value="recruiter">
+                        <label for="login_recruiter">Recruiter</label>
+                        <input type="radio" id="login_job_seeker" name="user_type" value="job_seeker" checked>
+                        <label for="login_job_seeker">Job Seeker</label>
+                    </div>
+                    <button type="submit" id="login-btn" class="modal-btn">Login</button>
+                </form>
+                <div class="modal-footer">
+                    Don't have an account? <a href="#" onclick="showModalView('register')">Register here</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register View -->
+        <div id="register-view">
+            <div class="modal-header">
+                <div class="logo-icon"><i class="fas fa-user-plus"></i></div>
+                <h2>Create Your Account</h2>
+                <p>Join our community to get started.</p>
+            </div>
+            <div class="modal-body">
+                <form class="modal-form" id="register-form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Full Name"
+                            required>
+                        <i class="fas fa-user fa-icon"></i>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="register-email" name="email"
+                            placeholder="Email Address" required>
+                        <i class="fas fa-envelope fa-icon"></i>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="register-password" name="password"
+                            placeholder="Create a Password" required>
+                        <i class="fas fa-lock fa-icon"></i>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="confirm_password" name="confirm_password"
+                            placeholder="Confirm Password" required>
+                        <i class="fas fa-lock fa-icon"></i>
+                        <div id="password-match-msg"></div>
+                    </div>
+                    <div class="user-type-toggle">
+                        <input type="radio" id="register_recruiter" name="user_type" value="recruiter">
+                        <label for="register_recruiter">I'm a Recruiter</label>
+                        <input type="radio" id="register_job_seeker" name="user_type" value="job_seeker" checked>
+                        <label for="register_job_seeker">I'm a Job Seeker</label>
+                    </div>
+                    <button type="submit" id="register-btn" class="modal-btn">Create Account</button>
+                </form>
+                <div class="modal-footer">
+                    Already have an account? <a href="#" onclick="showModalView('login')">Login here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <p>© 2025 JobGenie India. All Rights Reserved.</p>
+            <div class="footer-links">
+                <a href="/about">About Us</a>
+                <a href="/contact">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../static/script.js"></script>
+</body>
+
+</html>
