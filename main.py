@@ -7,11 +7,11 @@ from pymongo import MongoClient
 from datetime import datetime, timezone
 from bson import json_util, ObjectId
 from functools import wraps
-from flask_cors import CORS
+# from flask_cors import CORS
 
 app = Flask(__name__)
 load_dotenv()
-CORS(app)
+# CORS(app)
 
 app.secret_key = "supersecretkey"
 
