@@ -378,17 +378,17 @@ body {
 
 .modal-header {
     text-align: center;
-    padding: 2rem 1.5rem 1rem 1.5rem;
+    padding: 1rem;
 }
 
 .modal-header .logo-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    font-size: 2rem;
+    /* margin-bottom: 1rem; */
     color: var(--primary-color);
 }
 
 .modal-header h2 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-family: var(--font-primary);
     font-weight: 700;
     color: var(--dark-text-color);
@@ -405,7 +405,8 @@ body {
 
 .modal-form .form-group {
     position: relative;
-    margin-bottom: 1.5rem;
+    height: 40px;
+    margin-bottom: 1.3rem;
 }
 
 .modal-form .form-control {
@@ -428,6 +429,7 @@ body {
     top: 17px;
     color: var(--light-text-color);
 }
+
 
 .user-type-toggle {
     display: flex;
@@ -493,6 +495,10 @@ body {
     font-weight: 500;
     margin-top: 5px;
     height: 15px;
+}
+
+#register-view{
+    height: 530px;
 }
 
 /* --- CORRECTION: Combined redundant modal rules --- */
@@ -958,10 +964,12 @@ body {
     padding: 0.25rem 0.75rem;
     border-radius: 99px;
 }
+
 .job-meta .job-type-badge.private {
     background-color: #f3f4f6;
     color: #4b5563;
 }
+
 .job-meta .job-type-badge.govt {
     background-color: var(--brand-primary-light, #e0e7ff);
     color: var(--brand-primary-dark, #3730a3);
@@ -988,7 +996,8 @@ body {
     cursor: pointer;
     position: relative;
     border-bottom: 3px solid transparent;
-    margin-bottom: -2px; /* Aligns the active border with the container's border */
+    margin-bottom: -2px;
+    /* Aligns the active border with the container's border */
     transition: color 0.2s ease, border-color 0.2s ease;
 }
 
@@ -1003,17 +1012,26 @@ body {
 
 /* --- Tab Content Panes --- */
 .tab-pane {
-    display: none; /* Hidden by default */
+    display: none;
+    /* Hidden by default */
     animation: fadeIn 0.5s ease;
 }
 
 .tab-pane.active {
-    display: block; /* Shown when active */
+    display: block;
+    /* Shown when active */
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .tab-pane h3 {
@@ -1031,7 +1049,8 @@ body {
     font-size: 1.05rem;
 }
 
-.tab-pane ul, .tab-pane ol {
+.tab-pane ul,
+.tab-pane ol {
     padding-left: 1.5rem;
 }
 
@@ -1061,6 +1080,7 @@ body {
     color: var(--light-text-color, #6b7280);
     margin-bottom: 0.25rem;
 }
+
 #countdown {
     font-size: 1.5rem;
     font-weight: 700;
@@ -1078,7 +1098,8 @@ body {
     align-items: center;
 }
 
-.apply-btn, .save-btn {
+.apply-btn,
+.save-btn {
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
     border-radius: 8px;
@@ -1092,6 +1113,7 @@ body {
     background-color: var(--primary-color, #4f46e5);
     color: white;
 }
+
 .apply-btn:hover {
     background-color: var(--brand-primary-dark, #3730a3);
 }
@@ -1100,6 +1122,7 @@ body {
     background-color: var(--medium-gray-color, #e9ecef);
     color: var(--dark-text-color, #111827);
 }
+
 .save-btn:hover {
     background-color: #d1d5db;
 }
