@@ -9,7 +9,6 @@ from bson import json_util, ObjectId
 from functools import wraps
 from flask_cors import CORS
 
-
 app = Flask(__name__)
 load_dotenv()
 CORS(app)
